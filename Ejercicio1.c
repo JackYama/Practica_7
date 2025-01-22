@@ -9,9 +9,9 @@ void ordenarnums(int * arr3, int n2){
     for (int i = 0; i < n2 ; i++){
         for (int j = 0; j < n2-1 ; j++){
             if(arr3[i] > arr3[j]){
-            cambio == arr3[i];
-            arr3[i] == arr3[j];
-            arr3[j] == cambio;
+            cambio = arr3[i];
+            arr3[i] = arr3[j];
+            arr3[j] = cambio;
             }
         }
     }
@@ -30,18 +30,20 @@ int main(int argc, char *argv[]) {
     int n1;
     int * arr2;
     
-  arr2 = (int *)malloc(n1 * sizeof(int));
-    if (arr2 == NULL) {
-        printf("Error al reservar memoria");
-        return 1;
-    }
-
-    if (argc == 1) {
+  
+    if (argc > 1) {
         n1 = atoi(argv[1]); // Convertir el primer argumento a entero
     } else {
         // Pedir al usuario el número de enteros
         printf("Introduce el número de enteros que quieres ordenar: ");
         scanf("%d", &n1);
+    }
+    
+    arr2 = (int *)malloc(n1 * sizeof(int));
+
+    if (arr2 == NULL) {
+        printf("Error al reservar memoria");
+        return 1;
     }
 
     if (n1 <= 0) {
@@ -58,7 +60,7 @@ int main(int argc, char *argv[]) {
             return 1;
         }
         for (int i = 0; i < n1; i++) {
-            arr2[i] = atoi(argv[2]);
+            arr2[i] = atoi(argv[2]); //TODO: no es argv[2]
         }
     } else {
         // Leer valores desde la entrada estándar
@@ -69,6 +71,7 @@ int main(int argc, char *argv[]) {
     }
     printf("Cadena ordenada");
     ordenarnums(arr2,n1);
+    printArray(arr2,n1);
 
     // Liberar memoria dinámica
     free(arr2);
