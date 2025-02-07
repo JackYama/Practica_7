@@ -1,26 +1,28 @@
 #include <stdio.h>
 #include <string.h>
 
-int es_palindromo(char cadena[]) {
-    int i, len = strlen(cadena); // con esto leemos la longitud de cadena
-    for (i = 0; i < len / 2; i++) {
-        if (cadena[i] != cadena[len - i - 1]) {
-            return 0;
-        }
-    }
-    return 1;
+/*Un palíndromo es una palabra, frase, número o secuencia de caracteres 
+que se lee igual de izquierda a derecha que de derecha a izquierda, 
+ignorando espacios, signos de puntuación y mayúsculas/minúsculas.*/
+
+// Función recursiva para verificar si una cadena es palíndroma.
+int esPalindromoRec(const char *str, int inicio, int fin) {
+    if (inicio >= fin) return 1;  // Caso base: es palíndromo
+    if (str[inicio] != str[fin]) return 0;  // Si no coinciden, no es palíndromo
+    return esPalindromoRec(str, inicio + 1, fin - 1);  // Llamada recursiva
+}
+
+int esPalindromo(const char *str) {
+    int len = strlen(str);
+    return esPalindromoRec(str, 0, len - 1);
 }
 
 int main() {
-    char cadena[100];
-    printf("Introduce una cadena: ");
-    scanf("%s", cadena);//esto guarda la cantidad que se introduce en cadena
-    
-    if (es_palindromo(cadena)) {// llamada a la funcion es palindromo realizada
-        printf("La cadena es un palíndromo.\n");
-    } else {
-        printf("La cadena no es un palíndromo.\n");
-    }
-    
+    char *cadena = "radar";
+    if (esPalindromo(cadena))
+        printf("\"%s\" es palíndroma.\n", cadena);
+    else
+        printf("\"%s\" no es palíndroma.\n", cadena);
     return 0;
 }
+
